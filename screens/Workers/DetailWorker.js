@@ -104,24 +104,29 @@ export default function DetailWorker({ navigation, route }) {
                     onChangeText={(value) => handleTextChange(value, "nombre")}
                 />
             </View>
-            <View>
-                <TextInput
-                    placeholder="Estado"
-                    autoCompleteType="tel"
-                    style={styles.inputGroup}
-                    value={worker.estado}
-                    onChangeText={(value) => handleTextChange(value, "estado")}
+            <View style={styles.btn}>
+                <Button
+                    title="ELIMINAR"
+                    onPress={() => { worker.estado = "*"; updateUser() }}
+                    color="#EB0000"
+                />
+            </View>
+            <View style={styles.btn}>
+                <Button title="Modificar" onPress={() => updateUser()} color="#19AC52" />
+            </View>
+            <View style={styles.btn}>
+                <Button
+                    title="INACTIVAR"
+                    onPress={() => { worker.estado = "I"; updateUser() }}
+                    color="#979797"
                 />
             </View>
             <View style={styles.btn}>
                 <Button
-                    title="ELIMINAR"
-                    onPress={() => openConfirmationAlert()}
-                    color="#E37399"
+                    title="REACTIVAR"
+                    onPress={() => { worker.estado = "A"; updateUser() }}
+                    color="#436EFF"
                 />
-            </View>
-            <View>
-                <Button title="ACTUALIZAR" onPress={() => updateUser()} color="#19AC52" />
             </View>
         </ScrollView>
     )

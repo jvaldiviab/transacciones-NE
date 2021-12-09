@@ -50,9 +50,9 @@ export default function WorkersList({ navigation }) {
                                 rounded
                             />
                             <ListItem.Content>
-                                <ListItem.Title>{worker.nombre}</ListItem.Title>
-                                <ListItem.Subtitle>{worker.codigo}</ListItem.Subtitle>
-                                <ListItem.Subtitle>Estado: {worker.estado === "A" ? "ACTIVO" : worker.estado === "I" ? "INACTIVO" : worker.estado === "*" ? "ELIMINADO" : ""}</ListItem.Subtitle>
+                                <ListItem.Title>Codigo: {worker.codigo}</ListItem.Title>
+                                <ListItem.Subtitle>Nombre: {worker.nombre}</ListItem.Subtitle>
+                                <ListItem.Subtitle>Estado: {worker.estado === "A" ? "ACTIVO" : worker.estado === "I" ? "INACTIVO" : worker.estado === "*" ? "ELIMINADO" : ""}({worker.estado})</ListItem.Subtitle>
                             </ListItem.Content>
                         </ListItem>
                     );

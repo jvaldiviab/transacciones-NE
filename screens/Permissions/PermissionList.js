@@ -42,7 +42,7 @@ export default function PermissionList({ navigation }) {
                             <ListItem.Content>
                                 <ListItem.Title>{permission.nombre}</ListItem.Title>
                                 <ListItem.Subtitle>{permission.codigo}</ListItem.Subtitle>
-                                <ListItem.Subtitle>Estado: {permission.estado === "A" ? "ACTIVO" : permission.estado === "I" ? "INACTIVO" : permission.estado === "*" ? "ELIMINADO" : ""}</ListItem.Subtitle>
+                                <ListItem.Subtitle>Estado: {permission.estado === "A" ? "ACTIVO" : permission.estado === "I" ? "INACTIVO" : permission.estado === "*" ? "ELIMINADO" : ""}({permission.estado})</ListItem.Subtitle>
                             </ListItem.Content>
                         </ListItem>
                     );

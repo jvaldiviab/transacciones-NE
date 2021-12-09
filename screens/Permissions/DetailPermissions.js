@@ -61,7 +61,6 @@ export default function DetailPermissions({ navigation, route }) {
     };
 
     const updateUser = async () => {
-        console.log(worker)
         const workerRef = firebase.db.collection("permissions").doc(permission.id);
         await workerRef.set({
             codigo: permission.codigo,
@@ -116,12 +115,26 @@ export default function DetailPermissions({ navigation, route }) {
             <View style={styles.btn}>
                 <Button
                     title="ELIMINAR"
-                    onPress={() => openConfirmationAlert()}
-                    color="#E37399"
+                    onPress={() => { permission.estado = "*"; updateUser() }}
+                    color="#EB0000"
                 />
             </View>
-            <View>
-                <Button title="ACTUALIZAR" onPress={() => updateUser()} color="#19AC52" />
+            <View style={styles.btn}>
+                <Button title="Modificar" onPress={() => updateUser()} color="#19AC52" />
+            </View>
+            <View style={styles.btn}>
+                <Button
+                    title="INACTIVAR"
+                    onPress={() => { permission.estado = "I"; updateUser() }}
+                    color="#979797"
+                />
+            </View>
+            <View style={styles.btn}>
+                <Button
+                    title="REACTIVAR"
+                    onPress={() => { permission.estado = "A"; updateUser() }}
+                    color="#436EFF"
+                />
             </View>
         </ScrollView>
     )
