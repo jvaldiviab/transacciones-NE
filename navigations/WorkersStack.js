@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import WorkersList from '../screens/Workers/WorkersList';
 import DetailWorker from '../screens/Workers/DetailWorker';
 import CreateWorker from '../screens/Workers/CreateWorker';
+import SearchWorker from '../screens/Workers/SearchWorker';
 
 const Stack = createStackNavigator();
 
@@ -39,7 +40,12 @@ export default function WorkersStack({ navigation }) {
             <Stack.Screen
                 name="CreateWorker"
                 component={CreateWorker}
-                options={{ title: "Crear nuevo trabajador" }}
+                options={{ title: "Busqueda de trabajador" }}
+            />
+            <Stack.Screen
+                name="SearchWorker"
+                component={SearchWorker}
+                options={{ title: "Busqueda por codigo" }}
             />
 
         </Stack.Navigator>
