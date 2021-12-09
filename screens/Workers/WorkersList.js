@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, StyleSheet } from "react-native";
+import { Button, StyleSheet, View } from "react-native";
+import { Icon } from 'react-native-elements'
 import { ListItem, Avatar } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 
@@ -25,42 +26,63 @@ export default function WorkersList({ navigation }) {
     }, []);
 
     return (
-        <ScrollView>
-            <Button
-                onPress={() => navigation.navigate("CreateWorker")}
-                title="Agregar nuevo trabajador"
-            />
-            {workers.map((worker) => {
-                return (
-                    <ListItem
-                        key={worker.id}
-                        bottomDivider
-                        onPress={() => {
-                            navigation.navigate("DetailWorker", {
-                                workerId: worker.id,
-                            });
-                        }}
-                    >
-                        <ListItem.Chevron />
-                        <Avatar
-                            source={{
-                                uri:
-                                    "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+        <View style={styles.viewBody}>
+
+            <ScrollView>
+
+                {workers.map((worker) => {
+                    return (
+                        <ListItem
+                            key={worker.id}
+                            bottomDivider
+                            onPress={() => {
+                                navigation.navigate("DetailWorker", {
+                                    workerId: worker.id,
+                                });
                             }}
-                            rounded
-                        />
-                        <ListItem.Content>
-                            <ListItem.Title>{worker.nombre}</ListItem.Title>
-                            <ListItem.Subtitle>{worker.codigo}</ListItem.Subtitle>
-                            <ListItem.Subtitle>Estado: {worker.estado === "A" ? "ACTIVO" : worker.estado === "I" ? "INACTIVO" : worker.estado === "*" ? "ELIMINADO" : ""}</ListItem.Subtitle>
-                        </ListItem.Content>
-                    </ListItem>
-                );
-            })}
-        </ScrollView>
+                        >
+                            <ListItem.Chevron />
+                            <Avatar
+                                source={{
+                                    uri:
+                                        "https://s3.amazonaws.com/uifaces/faces/twitter/ladylexy/128.jpg",
+                                }}
+                                rounded
+                            />
+                            <ListItem.Content>
+                                <ListItem.Title>{worker.nombre}</ListItem.Title>
+                                <ListItem.Subtitle>{worker.codigo}</ListItem.Subtitle>
+                                <ListItem.Subtitle>Estado: {worker.estado === "A" ? "ACTIVO" : worker.estado === "I" ? "INACTIVO" : worker.estado === "*" ? "ELIMINADO" : ""}</ListItem.Subtitle>
+                            </ListItem.Content>
+                        </ListItem>
+                    );
+                })}
+
+            </ScrollView>
+            <Icon
+                type="material-community"
+                name="plus"
+                color="#60585e"
+                reverse
+                containerStyle={styles.btnContainer}
+                onPress={() => navigation.navigate("CreateWorker")}
+            />
+        </View>
     );
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    btnContainer: {
+        position: "absolute",
+        bottom: 10,
+        right: 10,
+        shadowColor: "black",
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.5
+    },
+    viewBody: {
+        height: "100%"
+    },
+})
 
 

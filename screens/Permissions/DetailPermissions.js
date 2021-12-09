@@ -115,13 +115,13 @@ export default function DetailPermissions({ navigation, route }) {
             </View>
             <View style={styles.btn}>
                 <Button
-                    title="Delete"
+                    title="ELIMINAR"
                     onPress={() => openConfirmationAlert()}
                     color="#E37399"
                 />
             </View>
             <View>
-                <Button title="Update" onPress={() => updateUser()} color="#19AC52" />
+                <Button title="ACTUALIZAR" onPress={() => updateUser()} color="#19AC52" />
             </View>
         </ScrollView>
     )

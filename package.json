@@ -27,7 +27,7 @@
     "react-navigation": "^4.4.4",
     "react-navigation-drawer": "^2.7.1",    
     "firebase": "^8.0.0",
-    "react-native-elements": "^3.0.0-alpha.1"
+    "react-native-elements": "^3.4.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9"
