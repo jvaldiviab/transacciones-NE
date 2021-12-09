@@ -18,7 +18,7 @@ export default function WorkersStack({ navigation }) {
         <Stack.Navigator
             screenOptions={{
                 headerStyle: {
-                    backgroundColor: "#621FF7",
+                    backgroundColor: "#3f3f3f",
                 },
                 headerTintColor: "#fff",
                 headerTitleStyle: {

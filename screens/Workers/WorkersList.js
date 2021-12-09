@@ -6,21 +6,21 @@ import { ScrollView } from "react-native-gesture-handler";
 import firebase from "../../utils/firebase";
 
 export default function WorkersList({ navigation }) {
-    const [users, setUsers] = useState([]);
+    const [workers, setWorkers] = useState([]);
 
     useEffect(() => {
         firebase.db.collection("workers").onSnapshot((querySnapshot) => {
-            const users = [];
+            const workers = [];
             querySnapshot.docs.forEach((doc) => {
                 const { codigo, nombre, estado } = doc.data();
-                users.push({
+                workers.push({
                     id: doc.id,
                     codigo,
                     nombre,
                     estado,
                 });
             });
-            setUsers(users);
+            setWorkers(workers);
         });
     }, []);
 
@@ -28,16 +28,16 @@ export default function WorkersList({ navigation }) {
         <ScrollView>
             <Button
                 onPress={() => navigation.navigate("CreateWorker")}
-                title="Create User"
+                title="Agregar nuevo trabajador"
             />
-            {users.map((user) => {
+            {workers.map((worker) => {
                 return (
                     <ListItem
-                        key={user.id}
+                        key={worker.id}
                         bottomDivider
                         onPress={() => {
                             navigation.navigate("DetailWorker", {
-                                workerId: user.id,
+                                workerId: worker.id,
                             });
                         }}
                     >
@@ -50,9 +50,9 @@ export default function WorkersList({ navigation }) {
                             rounded
                         />
                         <ListItem.Content>
-                            <ListItem.Title>{user.nombre}</ListItem.Title>
-                            <ListItem.Subtitle>{user.codigo}</ListItem.Subtitle>
-                            <ListItem.Subtitle>Estado: {user.estado}</ListItem.Subtitle>
+                            <ListItem.Title>{worker.nombre}</ListItem.Title>
+                            <ListItem.Subtitle>{worker.codigo}</ListItem.Subtitle>
+                            <ListItem.Subtitle>Estado: {worker.estado === "A" ? "ACTIVO" : worker.estado === "I" ? "INACTIVO" : worker.estado === "*" ? "ELIMINADO" : ""}</ListItem.Subtitle>
                         </ListItem.Content>
                     </ListItem>
                 );

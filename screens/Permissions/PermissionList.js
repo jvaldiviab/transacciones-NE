@@ -1,36 +1,58 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import {
-    createDrawerNavigator,
-    DrawerContentScrollView,
-    DrawerItemList,
-    DrawerItem,
-} from '@react-navigation/drawer';
+import React, { useState, useEffect } from "react";
+import { Button, StyleSheet } from "react-native";
+import { ListItem, Avatar } from "react-native-elements";
+import { ScrollView } from "react-native-gesture-handler";
+
+import firebase from "../../utils/firebase";
 
 export default function PermissionList({ navigation }) {
-    return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontWeight: "900", margin: 20 }}>Contact</Text>
-            <Text> </Text>
-            <Button onPress={() => navigation.goBack()} color="#F44336" title="Back" />
-            <Text> </Text>
-            <Button onPress={() => navigation.openDrawer()} color="#E91E63" title="Drawer" />
-            <Text> </Text>
-            <Button title="Toggle drawer" color="#9C27B0" onPress={() => navigation.toggleDrawer()} />
+    const [permissions, setPermissions] = useState([]);
 
-        </View>
+    useEffect(() => {
+        firebase.db.collection("permissions").onSnapshot((querySnapshot) => {
+            const permissions = [];
+            querySnapshot.docs.forEach((doc) => {
+                const { codigo, nombre, estado } = doc.data();
+                permissions.push({
+                    id: doc.id,
+                    codigo,
+                    nombre,
+                    estado,
+                });
+            });
+            setPermissions(permissions);
+        });
+    }, []);
+
+    return (
+        <ScrollView>
+            <Button
+                onPress={() => navigation.navigate("CreatePermissions")}
+                title="Agregar nuevo permiso"
+            />
+            {permissions.map((permission) => {
+                return (
+                    <ListItem
+                        key={permission.id}
+                        bottomDivider
+                        onPress={() => {
+                            navigation.navigate("DetailPermissions", {
+                                permissionId: permission.id,
+                            });
+                        }}
+                    >
+                        <ListItem.Content>
+                            <ListItem.Title>{permission.nombre}</ListItem.Title>
+                            <ListItem.Subtitle>{permission.codigo}</ListItem.Subtitle>
+                            <ListItem.Subtitle>Estado: {permission.estado === "A" ? "ACTIVO" : permission.estado === "I" ? "INACTIVO" : permission.estado === "*" ? "ELIMINADO" : ""}</ListItem.Subtitle>
+                        </ListItem.Content>
+                    </ListItem>
+                );
+            })}
+        </ScrollView>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        padding: 10,
-        margin: 10,
-        backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});
+const styles = StyleSheet.create({})
+
+

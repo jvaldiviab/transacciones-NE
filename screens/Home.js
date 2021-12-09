@@ -12,12 +12,7 @@ import {
 export default function Home({ navigation }) {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={{ fontWeight: "900", margin: 20 }}>Home</Text>
-            <Text> </Text>
-            <Button onPress={() => navigation.openDrawer()} color="#E91E63" title="Drawer" />
-            <Text> </Text>
-            <Button title="Toggle drawer" color="#9C27B0" onPress={() => navigation.toggleDrawer()} />
-
+            <Text style={{ fontWeight: "900", margin: 20 }}>Bienvenido</Text>
         </View>
     );
 }

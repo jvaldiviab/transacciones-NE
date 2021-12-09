@@ -17,9 +17,9 @@ function App() {
 		<NavigationContainer>
 			<Drawer.Navigator initialRouteName="Home">
 				<Drawer.Screen name="Home" component={Home} />
-				<Drawer.Screen name="Worker" component={WorkersStack} />
-				<Drawer.Screen name="Permission" component={PermissionsStack} />
-				<Drawer.Screen name="Transaction" component={AddTransaction} />
+				<Drawer.Screen name="Trabajadores" component={WorkersStack} />
+				<Drawer.Screen name="Permisos" component={PermissionsStack} />
+				<Drawer.Screen name="Transacción de permisos" component={AddTransaction} />
 			</Drawer.Navigator>
 		</NavigationContainer>
 	);
