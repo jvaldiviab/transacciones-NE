@@ -5,10 +5,11 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Home from './screens/Home';
 import WorkersStack from './navigations/WorkersStack';
-import AddPermission from './screens/Permissions/PermissionList';
-import AddTransaction from './screens/AddTransaction';
 import PermissionsStack from './navigations/PermissionsStack';
+import TransactionStack from './navigations/TransactionStack';
+import { LogBox } from 'react-native'
 
+LogBox.ignoreAllLogs()
 
 const Drawer = createDrawerNavigator();
 
@@ -19,7 +20,7 @@ function App() {
 				<Drawer.Screen name="Home" component={Home} />
 				<Drawer.Screen name="Trabajadores" component={WorkersStack} />
 				<Drawer.Screen name="Permisos" component={PermissionsStack} />
-				<Drawer.Screen name="Transacción de permisos" component={AddTransaction} />
+				<Drawer.Screen name="Transacciones de permisos" component={TransactionStack} />
 			</Drawer.Navigator>
 		</NavigationContainer>
 	);

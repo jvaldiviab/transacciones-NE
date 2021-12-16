@@ -6,15 +6,15 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 // Navigation
 
 import { createStackNavigator } from "@react-navigation/stack";
-import PermissionList from '../screens/Permissions/PermissionList';
-import DetailPermissions from '../screens/Permissions/DetailPermissions';
-import CreatePermissions from '../screens/Permissions/CreatePermissions';
-import SearchPermission from '../screens/Permissions/SearchPermission';
+import TransactionList from '../screens/Transaction/TransactionList';
+import DetailTransaction from '../screens/Transaction/DetailTransaction';
+import CreateTransaction from '../screens/Transaction/CreateTransaction';
+import SearchTransaction from '../screens/Transaction/SearchTransaction';
 
 const Stack = createStackNavigator();
 
 
-export default function PermissionsStack({ navigation }) {
+export default function TransactionStack({ navigation }) {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -28,24 +28,24 @@ export default function PermissionsStack({ navigation }) {
             }}
         >
             <Stack.Screen
-                name="PermissionList"
-                component={PermissionList}
-                options={{ title: "Lista de Permisos" }}
+                name="TransactionList"
+                component={TransactionList}
+                options={{ title: "Lista de transacciones de permisos" }}
             />
             <Stack.Screen
-                name="DetailPermissions"
-                component={DetailPermissions}
-                options={{ title: "Detalle de permisos" }}
+                name="DetailTransaction"
+                component={DetailTransaction}
+                options={{ title: "Detalle de transacciones de permisos" }}
             />
             <Stack.Screen
-                name="CreatePermissions"
-                component={CreatePermissions}
-                options={{ title: "Crear nuevo permiso" }}
+                name="CreateTransaction"
+                component={CreateTransaction}
+                options={{ title: "Crear una transaccion de permiso" }}
             />
             <Stack.Screen
-                name="SearchPermission"
-                component={SearchPermission}
-                options={{ title: "Buscar permiso por codigo" }}
+                name="SearchTransaction"
+                component={SearchTransaction}
+                options={{ title: "Busqueda por codigo" }}
             />
 
         </Stack.Navigator>

@@ -64,14 +64,7 @@ export default function CreateWorker({ navigation }) {
                 />
             </View>
 
-            {/* Input */}
-            <View style={styles.inputGroup}>
-                <TextInput
-                    placeholder="Estado"
-                    onChangeText={(value) => handleChangeText(value, "estado")}
-                    value={state.estado}
-                />
-            </View>
+
 
             <View style={styles.button}>
                 <Button title="Guardar Trabajador" onPress={() => saveNewWorker()} />

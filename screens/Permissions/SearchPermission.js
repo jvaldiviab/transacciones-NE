@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { Button, StyleSheet, View } from "react-native";
-import { Icon } from 'react-native-elements'
+import { Icon, Input, Text } from 'react-native-elements'
 import { ListItem, Avatar } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
 
 import firebase from "../../utils/firebase";
 
-export default function WorkersList({ navigation }) {
+export default function SearchPermission({ navigation }) {
+
+    const [query, setQuery] = useState("");
     const [workers, setWorkers] = useState([]);
 
     useEffect(() => {
-        firebase.db.collection("workers").onSnapshot((querySnapshot) => {
+        firebase.db.collection("permissions").onSnapshot((querySnapshot) => {
             const workers = [];
             querySnapshot.docs.forEach((doc) => {
                 const { codigo, nombre, estado } = doc.data();
@@ -25,12 +27,29 @@ export default function WorkersList({ navigation }) {
         });
     }, []);
 
+    let searchedWorkers = [];
+
+    if (!query.length >= 1) {
+        searchedWorkers = workers;
+    } else {
+        searchedWorkers = workers.filter(worker => {
+            const workerCod = worker.codigo.toLowerCase();
+            const searchCod = query.toLowerCase();
+            return workerCod.includes(searchCod);
+        });
+    }
+
     return (
         <View style={styles.viewBody}>
 
+            <Input
+                placeholder="Ingrese la palabra a buscar"
+                onChange={(e) => setQuery(e.nativeEvent.text)}
+            />
+
             <ScrollView>
 
-                {workers.map((worker) => {
+                {searchedWorkers.map((worker) => {
                     return (
                         <ListItem
                             key={worker.id}
@@ -50,7 +69,7 @@ export default function WorkersList({ navigation }) {
                                 rounded
                             />
                             <ListItem.Content>
-                                <ListItem.Title>DNI: {worker.codigo}</ListItem.Title>
+                                <ListItem.Title>Codigo: {worker.codigo}</ListItem.Title>
                                 <ListItem.Subtitle>Nombre: {worker.nombre}</ListItem.Subtitle>
                                 <ListItem.Subtitle>Estado: {worker.estado === "A" ? "ACTIVO" : worker.estado === "I" ? "INACTIVO" : worker.estado === "*" ? "ELIMINADO" : ""}({worker.estado})</ListItem.Subtitle>
                             </ListItem.Content>
@@ -59,22 +78,6 @@ export default function WorkersList({ navigation }) {
                 })}
 
             </ScrollView>
-            <Icon
-                type="material-community"
-                name="plus"
-                color="#60585e"
-                reverse
-                containerStyle={styles.btnContainer}
-                onPress={() => navigation.navigate("CreateWorker")}
-            />
-            <Icon
-                type="material-community"
-                name="account-search"
-                color="#60585e"
-                reverse
-                containerStyle={styles.btnSearch}
-                onPress={() => navigation.navigate("SearchWorker")}
-            />
         </View>
     );
 }

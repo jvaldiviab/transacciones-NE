@@ -1,52 +1,58 @@
 import React, { useState, useEffect } from "react";
 import { Button, StyleSheet, View } from "react-native";
+import { Icon } from 'react-native-elements'
 import { ListItem, Avatar } from "react-native-elements";
 import { ScrollView } from "react-native-gesture-handler";
-import { Icon } from 'react-native-elements'
 
 import firebase from "../../utils/firebase";
 
-export default function PermissionList({ navigation }) {
-    const [permissions, setPermissions] = useState([]);
+export default function TransactionList({ navigation }) {
+    const [transactions, setTransactions] = useState([]);
 
     useEffect(() => {
-        firebase.db.collection("permissions").onSnapshot((querySnapshot) => {
-            const permissions = [];
+        firebase.db.collection("transactions").onSnapshot((querySnapshot) => {
+            const transactions = [];
             querySnapshot.docs.forEach((doc) => {
-                const { codigo, nombre, estado } = doc.data();
-                permissions.push({
+                const { codWorker, codPermiss, horas, estado } = doc.data();
+                transactions.push({
                     id: doc.id,
-                    codigo,
-                    nombre,
+                    codWorker,
+                    codPermiss,
+                    horas,
                     estado,
                 });
             });
-            setPermissions(permissions);
+            setTransactions(transactions);
         });
     }, []);
 
     return (
         <View style={styles.viewBody}>
+
             <ScrollView>
-                {permissions.map((permission) => {
+
+                {transactions.map((transaction) => {
                     return (
                         <ListItem
-                            key={permission.id}
+                            key={transaction.id}
                             bottomDivider
                             onPress={() => {
-                                navigation.navigate("DetailPermissions", {
-                                    permissionId: permission.id,
+                                navigation.navigate("DetailTransaction", {
+                                    transactionId: transaction.id,
                                 });
                             }}
                         >
+                            <ListItem.Chevron />
                             <ListItem.Content>
-                                <ListItem.Title>{permission.nombre}</ListItem.Title>
-                                <ListItem.Subtitle>{permission.codigo}</ListItem.Subtitle>
-                                <ListItem.Subtitle>Estado: {permission.estado === "A" ? "ACTIVO" : permission.estado === "I" ? "INACTIVO" : permission.estado === "*" ? "ELIMINADO" : ""}({permission.estado})</ListItem.Subtitle>
+                                <ListItem.Title>Codigo Trabajador: {transaction.codWorker}</ListItem.Title>
+                                <ListItem.Subtitle>codPermiss: {transaction.codPermiss}</ListItem.Subtitle>
+                                <ListItem.Subtitle>Horas: {transaction.horas}</ListItem.Subtitle>
+                                <ListItem.Subtitle>Estado: {transaction.estado === "A" ? "ACTIVO" : transaction.estado === "I" ? "INACTIVO" : transaction.estado === "*" ? "ELIMINADO" : ""}({transaction.estado})</ListItem.Subtitle>
                             </ListItem.Content>
                         </ListItem>
                     );
                 })}
+
             </ScrollView>
             <Icon
                 type="material-community"
@@ -54,16 +60,15 @@ export default function PermissionList({ navigation }) {
                 color="#60585e"
                 reverse
                 containerStyle={styles.btnContainer}
-                onPress={() => navigation.navigate("CreatePermissions")}
+                onPress={() => navigation.navigate("CreateTransaction")}
             />
-
             <Icon
                 type="material-community"
                 name="account-search"
                 color="#60585e"
                 reverse
                 containerStyle={styles.btnSearch}
-                onPress={() => navigation.navigate("SearchPermission")}
+                onPress={() => navigation.navigate("SearchTransaction")}
             />
         </View>
     );
@@ -78,7 +83,6 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 2, height: 2 },
         shadowOpacity: 0.5
     },
-
     btnSearch: {
         position: "absolute",
         bottom: 80,
